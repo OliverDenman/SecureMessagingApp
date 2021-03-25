@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="eel.js"></script>
+    <title>Join Server</title>
+    <link rel="stylesheet" type="text/css" href="UserJoinStyleSheet.css">
+    <script src="javaScript.js"></script>
+</head>
+<body onload="SetUsername()">
+    <div class = "InputContainer">
+        <div class = "Userinput">
+            <input type = text name = "Sign In As" placeholder="Signed In As, " autocomplete="off", class = "Input" Id="UserWelcome" readonly>
+            <input type="text" name="IP Address" placeholder="IP Address" autocomplete="off", class="Input" Id="IP" minlength="7" maxlength="15">
+            <input type="text" name="Port" placeholder="Port" autocomplete="off", class="Input" Id="Port" maxlength="5">
+        </div>
+        <div class="OptionBoxes">
+            <div class="LogBoxesContainer">
+                <label for="LogsBox" Id="LogsLabel">Keep Logs Of Chat</label>
+                <input type="checkbox" Id="LogsBoxInput" name="LogsBox" value="Logs">
+            </div>
+            <div class="EncryptionBoxesContainer">
+                <label for="Encryption" Id="EncryptionLabel">Encrypt Data</label>
+                <input type="checkbox" Id="EncryptionBoxInput" name="Encryption" value="Logs">
+            </div>
+            <div class="UsernameBoxesContainer">
+                <label for="AnonymousUsernameInput" Id="LogsLabel">Use Username When Connecting</label>
+                <input type="checkbox" Id="AnonymousUsernameInput" name="AnonymousUsernameInput" value="Logs">
+            </div>
+        </div>
+        <div class="ErrorBox">
+            <p Id="ErrorMessage"><i>Please Enter An Ip Address and Port</i></p>
+        </div>
+        <button class="btn1" onclick="JoinServerButtonOnClick()">CONNECT</button>
+    </div>
+    <button class="btn2" onclick="ChangePage('login.html')">SIGN OUT</button>
+</body>
+</html>

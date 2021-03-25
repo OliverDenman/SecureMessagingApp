@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="eel.js"></script>
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="CreateAccountStyleSheet.css">
+    <script src="javaScript.js"></script>
+
+</head>
+<body>
+    <div class="loginContainer">
+        <div class="Userinput">
+            <input type="input" name="Username" placeholder="Username" autocomplete="off", class="loginInput" Id="AccountCreationUsername">
+            <input type="password" name="Password" placeholder="Password" autocomplete="off", class="loginInput" Id = "AccountCreationPassword1">
+            <input type="password" name="PasswordCheck" placeholder="Verify Password" autocomplete="off", class="loginInput" Id = "AccountCreationPassword2">
+            <button class="btn1" onclick="AccountCreationButtonOnClick()">CREATE</button>
+        </div>
+        <div class="ErrorBox">
+            <p Id="ErrorMessage"><i>Please Enter Username and Password</i></p>
+        </div>
+    </div>
+    <button class="btn2" onclick="ChangePage('login.html')">BACK</button>
+</body>
+</html>

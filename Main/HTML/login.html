@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="eel.js"></script>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="LoginStyleSheet.css">
+    <script src="javaScript.js"></script>
+</head>
+<body>
+    <div class="loginContainer">
+        <div class = "Userinput">
+            <input type="input" name="Username" placeholder="Username" autocomplete="off", class="loginInput" Id="SigninUsername">
+            <input type="password" name="Password" placeholder="Password" autocomplete="off", class="loginInput" Id="Signinpassword">
+        </div>
+        <button class="btn1" onclick="SigninButtonOnClick()">SIGN IN</button>
+        <button class="btn3" onclick="ChangePage('signup.html')">CREATE ACCOUNT</button>
+        <button class="btn4" onclick="ChangePage('ForgotPassword.html')">FORGOT PASSWORD</button>
+        <div class="ErrorBox">
+            <p Id="ErrorMessage"><i>Please Enter Username and Password</i></p>
+        </div>
+
+        </div>
+    </div>
+        <button class="btn2" onclick="ChangePage('index.html')">BACK</button>
+
+</body>
+</html>

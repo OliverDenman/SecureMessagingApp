@@ -1,0 +1,202 @@
+body {
+    background-color: rgb(53,54,58);
+    margin: 0;
+    padding: 0;
+}
+
+.InputContainer {
+    background-color: rgba(256, 256, 256,0.06);
+    align-content: center;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 825px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.ErrorBox{
+    background-color: rgba(256,256,256,0.4);
+    bottom: 13px;
+    width: 600px;
+    height: 65px;
+    border: none;
+    margin-left: 20px;
+    overflow: hidden;
+    position: absolute;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#ErrorMessage{
+    font-size: 20px;
+    margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.btn1 {
+    position: absolute;
+    bottom: 10px;
+    right: 15px;
+    width: 150px;
+
+    text-align: center;
+    margin-left: 64%;
+    margin-right: 10px;
+    border: none;
+    background-color: rgba(254, 108, 20,1);
+    padding: 10px;
+    font-size: 40px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.17);
+    border-radius: 10px;
+}
+.btn1:hover{
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.25);
+    background-color: rgba(254, 108, 20,0.75);
+}
+
+.btn2 {
+    position: absolute;
+    text-align: center;
+    left: 10px;
+    bottom: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    background-color: rgba(50, 194, 191,1);
+    padding: 5px 10px;
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.17);
+    border-radius: 10px;
+}
+
+.btn2:hover{
+    background-color: rgba(50, 194, 191,0.75);
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.25);
+}
+
+.btn4 {
+    width: 470px;
+    height: 50px;
+    position: absolute;
+    text-align: center;
+    right: 26px;
+    top: 158px;
+    margin-top: 20px;
+    padding: 5px;
+    border: none;
+    background-color: rgba(224, 20, 224,1);
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    border-radius: 10px;
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.17);
+}
+.btn4:hover{
+    background-color: rgba(224, 20, 224,0.75);
+    box-shadow:inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.25);
+}
+
+#IP{
+    width: 480px;
+    border-radius: 10px;
+    margin-left: 20px;
+}
+
+
+#Port{
+    width: 225px;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.Input{
+    padding: 10px;
+    border: none;
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 50px;
+    font-family: 'Roboto', sans-serif;
+    display: inline-block;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.OptionBoxes{
+    width: 800px;
+    height: 195px;
+}
+
+.LogBoxesContainer{
+    position: absolute;
+    font-size: 15px;
+    background-color: rgba(80, 171, 92,1);
+    font-family: 'Roboto', sans-serif;
+    width: 260px;
+    border-color:rgba(56, 130, 66,1);
+    border-radius: 10px;
+    margin-left: 20px;
+    margin-top: 15px;
+    padding: 15px;
+}
+
+.LogBoxesContainer:hover{
+    background-color: rgba(56, 130, 66,1);
+}
+
+#LogsBoxInput{
+    -webkit-transform: scale(2);
+    margin-left: 118px;
+}
+
+.EncryptionBoxesContainer{
+    padding: 20px;
+    padding-top: 14px;
+    text-align: center;
+    right: 26px;
+    top: 116px;
+    position: absolute;
+    font-size: 20px;
+    background-color: rgba(114, 43, 207,1);
+    font-family: 'Roboto', sans-serif;
+    width: 430px;
+    height: 15px;
+    border-radius: 10px;
+}
+
+.EncryptionBoxesContainer:hover{
+    background-color: rgba(96, 35, 176,1);
+}
+
+#EncryptionBoxInput{
+    -webkit-transform: scale(2);
+    margin-left: 280px;
+}
+
+.UsernameBoxesContainer{
+    padding: 15px;
+    margin-top: 75px;
+    margin-left: 20px;
+    position: absolute;
+    font-size: 15px;
+    background-color: rgba(80, 171, 92,1);
+    font-family: 'Roboto', sans-serif;
+    width: 260px;
+    border-color:rgba(56, 130, 66,1);
+    border-radius: 10px;
+}
+
+.UsernameBoxesContainer:hover{
+    background-color: rgba(56, 130, 66,1);
+}
+
+#AnonymousUsernameInput{
+    -webkit-transform: scale(2);
+    margin-left: 26px;
+}
