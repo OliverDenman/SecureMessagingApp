@@ -13,10 +13,11 @@ def clientSend():
     message = input("")
     clientSocket.send(message.encode("utf-8"))
     if message == "quit":
+        print("Disconnecting")
         clientSocket.close()
 
 IP = socket.gethostname()
-PORT = 1214
+PORT = 1217
 
 Buffer = 1024
 

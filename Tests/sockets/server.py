@@ -18,28 +18,24 @@ def clientHandle(client):
     username = client.recv(Buffer).decode("utf-8")
     broadcast(f"{username} has joined the server".encode("utf-8"), "")
     clients[client] = username
-    try:
-        while True:
-            message = client.recv(Buffer)
-            if message.decode("utf-8") != "quit":
-                broadcast(message, username + ": ")
-            else:
-                client.send("Disconnecting".encode("utf-8"))
-                client.close()
-                del clients[client]
-                broadcast(f"{username} has left the chat.".encode("utf-8"), "")
-                break
-    except:
-        print ("DEBUG")
-        pass
+    while True:
+        message = client.recv(Buffer)
+        if len(message) == 0: break
+        if message.decode("utf-8") != "quit":
+            broadcast(message, username + ": ")
+        else:
+            client.close()
+            del clients[client]
+            broadcast(f"{username} has left the chat.".encode("utf-8"), "")
+            break
 
 Buffer = 1024
 addresses ={}
 clients = {}
 IP = socket.gethostname()
-PORT = 1214
-
+PORT = 1217
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind((IP, PORT))
 
 if __name__ == "__main__":
