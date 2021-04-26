@@ -1,6 +1,5 @@
 import socket
 from threading import *
-import time
 
 def ListenForConnections():
     while True:
@@ -35,12 +34,14 @@ clients = {}
 IP = socket.gethostname()
 PORT = 1217
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-# server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-server.bind((IP, PORT))
 
-if __name__ == "__main__":
+def initServerCreation():
+    # server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    server.bind((IP, PORT))
     server.listen(5)
     connectionThread = Thread(target = ListenForConnections)
     connectionThread.start()
     connectionThread.join()
     server.close()
+
+initServerCreation()

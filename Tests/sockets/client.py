@@ -17,7 +17,7 @@ def clientSend():
         clientSocket.close()
 
 IP = socket.gethostname()
-PORT = 1217
+PORT = 25565
 
 Buffer = 1024
 
@@ -30,3 +30,7 @@ clientReceiveThread.start()
 
 while True:
     clientSend()
+
+
+
+

@@ -26,8 +26,36 @@ function JoinServerButtonOnClick(){
         anom = "False";
     }
     console.log(IP, Port, logs, encrypt, anom);
-    eel.GetInputFromServer(IP, Port, logs, encrypt, anom);
+    eel.GetInputFromServerJoin(IP, Port, logs, encrypt, anom);
 }
+
+eel.expose(JoinServerButtonOnClick);
+function CreateServerButtonOnClick(){
+    var IP = document.getElementById("IP").value;
+    var Port = document.getElementById("Port").value;
+    var logs = document.getElementById("LogsBoxInput");
+    if (logs.checked == true){
+        logs = "True";
+    }else{
+        logs = "False";
+    }
+    var encrypt = document.getElementById("EncryptionBoxInput");
+    if (encrypt.checked == true){
+        encrypt = "True";
+    }else{
+        encrypt = "False";
+    }
+    var anom = document.getElementById("AnonymousUsernameInput");
+    if (anom.checked == true){
+        anom = "True";
+    }else{
+        anom = "False";
+    }
+    console.log(IP, Port, logs, encrypt, anom);
+    eel.GetInputFromServerCreate(IP, Port, logs, encrypt, anom);
+    window.location.href = "ServerDashboard.html";
+}
+
 
 eel.expose(ChangePage);
 function ChangePage(NextPage){
@@ -37,6 +65,11 @@ function ChangePage(NextPage){
 eel.expose(ForgotPasswordChangeNewPassword);
 function ForgotPasswordChangeNewPassword(newPass){
     document.getElementById("ForgotPasswordPasswordOutput").value = newPass;
+}
+
+function CloseServer(){
+    eel.CloseSocket();
+    window.location.href = "server.html";
 }
 
 function AccountCreationInputFieldCollection(){
@@ -63,6 +96,7 @@ function SigninButtonOnClick(){
 function ForgotPasswordOnClick(){
     eel.Forgot(document.getElementById("ForgotPasswordUsername").value);
 }
+
 eel.expose(GetUsername);
 function GetUsername(username){
     sessionStorage.setItem("USERNAME", username);
@@ -80,5 +114,6 @@ function GetIp(IP){
 
 function SetIp(){
     document.getElementById("IP").value = sessionStorage.getItem("LOCALIP");
+    document.getElementById("Port").value = 25565;
 }
 
