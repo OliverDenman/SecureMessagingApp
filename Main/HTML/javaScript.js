@@ -27,6 +27,7 @@ function JoinServerButtonOnClick(){
     }
     console.log(IP, Port, logs, encrypt, anom);
     eel.GetInputFromServerJoin(IP, Port, logs, encrypt, anom);
+    window.location.href = "clientSide.html";
 }
 
 eel.expose(JoinServerButtonOnClick);
@@ -67,9 +68,30 @@ function ForgotPasswordChangeNewPassword(newPass){
     document.getElementById("ForgotPasswordPasswordOutput").value = newPass;
 }
 
+eel.expose(updateServerMessages);
+function updateServerMessages(message){
+    var old = document.getElementById("ServerMessages").value;
+    document.getElementById("ServerMessages").value =  old + " " + message + "\n";
+    document.getElementById("ServerMessages").scrollTop = document.getElementById("ServerMessages").scrollHeight;
+}
+
+eel.expose(updateUserMessages);
+function updateUserMessages(message){
+    var old = document.getElementById("UserMessages").value;
+    document.getElementById("UserMessages").value =  old + " " + message + "\n";
+    document.getElementById("UserMessages").scrollTop = document.getElementById("UserMessages").scrollHeight;
+}
+
+function SendMessage(){
+    eel.clientSend(document.getElementById("MessageInput").value);
+}
+
 function CloseServer(){
     eel.CloseSocket();
-    window.location.href = "server.html";
+}
+
+function CloseUser(){
+    eel.CloseUser();
 }
 
 function AccountCreationInputFieldCollection(){
@@ -100,6 +122,11 @@ function ForgotPasswordOnClick(){
 eel.expose(GetUsername);
 function GetUsername(username){
     sessionStorage.setItem("USERNAME", username);
+}
+
+eel.expose(ReturnUsername)
+function ReturnUsername(){
+    eel.clientSend(sessionStorage.getItem("USERNAME"));
 }
 
 function SetUsername(){

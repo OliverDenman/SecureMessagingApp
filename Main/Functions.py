@@ -1,19 +1,51 @@
 import pickle
 import eel
 import socket
+import os
 from threading import *
 
 Buffer = 1024
 addresses ={}
 clients = {}
-# IP = socket.gethostname()
-# PORT = 1234
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+clientSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+def KillServer():
+    server.close()
+
+def KillUser():
+    clientSend("quit")
+
+def initUserJoin(IP,PORT):
+    clientSocket.connect((IP, int(PORT)))
+    clientReceiveThread = Thread(target=clientReceive)
+    clientReceiveThread.daemon = True
+    clientReceiveThread.start()
+    eel.ReturnUsername()
+
+def clientReceive():
+    while True:
+        try:
+            message = clientSocket.recv(Buffer).decode("utf-8")
+            eel.updateUserMessages(message)
+            print (message)
+        except OSError:
+            break
+
+@eel.expose
+def clientSend(UserMessage):
+    clientSocket.send(UserMessage.encode("utf-8"))
+    if UserMessage == "quit":
+        print("Disconnecting")
+        eel.updateUserMessages("Disconnecting")
+        clientSocket.close()
+        os._exit(1)
 
 def ListenForConnections(IP, PORT):
     while True:
         client, clientAddress = server.accept()
         print (f"A connection with {clientAddress} has been established.")
+        eel.updateServerMessages(f"A connection with {clientAddress} has been established.")
         client.send(f"A connection with the server {IP} has been established.".encode("utf-8"))
         addresses[client] = clientAddress
         Thread(target=clientHandle, args=(client,)).start()
@@ -25,16 +57,22 @@ def broadcast(message, prefix):
 def clientHandle(client):
     username = client.recv(Buffer).decode("utf-8")
     broadcast(f"{username} has joined the server".encode("utf-8"), "")
+    eel.updateServerMessages(f"{username} has joined the server")
+    print (f"{username} has joined the server")
     clients[client] = username
     while True:
         message = client.recv(Buffer)
         if len(message) == 0: break
         if message.decode("utf-8") != "quit":
             broadcast(message, username + ": ")
+            eel.updateServerMessages(f"{username}: {message}")
+            print (f"{username}: {message}")
         else:
             client.close()
             del clients[client]
             broadcast(f"{username} has left the chat.".encode("utf-8"), "")
+            eel.updateServerMessages(f"{username} has left the chat.")
+            print(f"{username} has left the chat.")
             break
 
 def initServerCreation(IP, PORT):
@@ -43,8 +81,8 @@ def initServerCreation(IP, PORT):
     server.listen(5)
     connectionThread = Thread(target = ListenForConnections, args=(IP,PORT));
     connectionThread.start()
-    connectionThread.join()
-    server.close()
+    # connectionThread.join()
+    # server.close()
 
 def CharacterCheck(Data):
     count = 0
@@ -128,9 +166,9 @@ def CheckUserJoinCredentials(IpAddress, port):
         return "Invalid Ip, Please Try Again"
     try:
         port = int(port)
-        if len(port) > 5:
+        if port < 1:
             return "Invalid Port, Please Try Again"
-        if len(port) < 1:
+        if port > 65535:
             return "Invalid Port, Please Try Again"
         return "Connecting"
     except:

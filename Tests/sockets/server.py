@@ -32,7 +32,7 @@ Buffer = 1024
 addresses ={}
 clients = {}
 IP = socket.gethostname()
-PORT = 1217
+PORT = 1218
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 def initServerCreation():
@@ -45,3 +45,5 @@ def initServerCreation():
     server.close()
 
 initServerCreation()
+
+

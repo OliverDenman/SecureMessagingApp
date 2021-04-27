@@ -7,6 +7,7 @@ from Functions import *
 import random
 import string
 from threading import *
+import os
 
 eel.init("HTML")
 
@@ -18,16 +19,19 @@ def CreateServer(IpAddress, Port, logs, encrypt, anom):
     ErrorHandler(Error)
     serverCreationThread = Thread(target = initServerCreation, args=(IpAddress,Port));
     serverCreationThread.start()
-    serverCreationThread.join()
-    # initServerCreation(IpAddress, Port)
-
 
 def ErrorHandler(error):
     eel.ErrorUpdater(error)() #Setting the error message for login
 
 @eel.expose
 def CloseSocket():
-    server.close()
+    KillServer()
+    os._exit(1)
+
+@eel.expose
+def CloseUser():
+    KillUser()
+    os._exit(1)
 
 @eel.expose
 def GetInputFromServerJoin(IpAddress, Port, logs, encrypt, anom):
@@ -77,9 +81,8 @@ def Forgot(username):
 def UserJoin(IpAddress, Port, logs, encrypt, anom):
     Error = CheckUserJoinCredentials(IpAddress, Port)
     ErrorHandler(Error)
+    userJoinThread = Thread(target = initUserJoin, args=(IpAddress,Port));
+    userJoinThread.start()
 
-eel.start("index.html", size=(1200,800), mode="chrome", block=True)
 
-
-def ServerStart():
-    pass
+eel.start("index.html", size=(1200,800), mode="chrome", block=True, port=8020)
