@@ -15,9 +15,10 @@ def clientSend():
     if message == "quit":
         print("Disconnecting")
         clientSocket.close()
+        exit()
 
 IP = socket.gethostname()
-PORT = 1217
+PORT = 1218
 
 Buffer = 1024
 

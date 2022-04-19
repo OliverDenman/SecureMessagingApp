@@ -26,8 +26,37 @@ function JoinServerButtonOnClick(){
         anom = "False";
     }
     console.log(IP, Port, logs, encrypt, anom);
-    eel.GetInputFromServer(IP, Port, logs, encrypt, anom);
+    eel.GetInputFromServerJoin(IP, Port, logs, encrypt, anom);
+    window.location.href = "clientSide.html";
 }
+
+eel.expose(JoinServerButtonOnClick);
+function CreateServerButtonOnClick(){
+    var IP = document.getElementById("IP").value;
+    var Port = document.getElementById("Port").value;
+    var logs = document.getElementById("LogsBoxInput");
+    if (logs.checked == true){
+        logs = "True";
+    }else{
+        logs = "False";
+    }
+    var encrypt = document.getElementById("EncryptionBoxInput");
+    if (encrypt.checked == true){
+        encrypt = "True";
+    }else{
+        encrypt = "False";
+    }
+    var anom = document.getElementById("AnonymousUsernameInput");
+    if (anom.checked == true){
+        anom = "True";
+    }else{
+        anom = "False";
+    }
+    console.log(IP, Port, logs, encrypt, anom);
+    eel.GetInputFromServerCreate(IP, Port, logs, encrypt, anom);
+    window.location.href = "ServerDashboard.html";
+}
+
 
 eel.expose(ChangePage);
 function ChangePage(NextPage){
@@ -37,6 +66,32 @@ function ChangePage(NextPage){
 eel.expose(ForgotPasswordChangeNewPassword);
 function ForgotPasswordChangeNewPassword(newPass){
     document.getElementById("ForgotPasswordPasswordOutput").value = newPass;
+}
+
+eel.expose(updateServerMessages);
+function updateServerMessages(message){
+    var old = document.getElementById("ServerMessages").value;
+    document.getElementById("ServerMessages").value =  old + " " + message + "\n";
+    document.getElementById("ServerMessages").scrollTop = document.getElementById("ServerMessages").scrollHeight;
+}
+
+eel.expose(updateUserMessages);
+function updateUserMessages(message){
+    var old = document.getElementById("UserMessages").value;
+    document.getElementById("UserMessages").value =  old + " " + message + "\n";
+    document.getElementById("UserMessages").scrollTop = document.getElementById("UserMessages").scrollHeight;
+}
+
+function SendMessage(){
+    eel.clientSend(document.getElementById("MessageInput").value);
+}
+
+function CloseServer(){
+    eel.CloseSocket();
+}
+
+function CloseUser(){
+    eel.CloseUser();
 }
 
 function AccountCreationInputFieldCollection(){
@@ -63,9 +118,15 @@ function SigninButtonOnClick(){
 function ForgotPasswordOnClick(){
     eel.Forgot(document.getElementById("ForgotPasswordUsername").value);
 }
+
 eel.expose(GetUsername);
 function GetUsername(username){
     sessionStorage.setItem("USERNAME", username);
+}
+
+eel.expose(ReturnUsername)
+function ReturnUsername(){
+    eel.clientSend(sessionStorage.getItem("USERNAME"));
 }
 
 function SetUsername(){
@@ -80,5 +141,6 @@ function GetIp(IP){
 
 function SetIp(){
     document.getElementById("IP").value = sessionStorage.getItem("LOCALIP");
+    document.getElementById("Port").value = 25565;
 }
 

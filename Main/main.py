@@ -1,10 +1,13 @@
 import eel
 import socket
+import pickle
 import sys
 from EncryptData import *
 from Functions import *
 import random
 import string
+from threading import *
+import os
 
 eel.init("HTML")
 
@@ -13,19 +16,30 @@ eel.GetIp(LocalIpV4)
 
 def CreateServer(IpAddress, Port, logs, encrypt, anom):
     Error = CheckUserJoinCredentials(IpAddress, Port)
-    print (Error)
     ErrorHandler(Error)
-
+    serverCreationThread = Thread(target = initServerCreation, args=(IpAddress,Port));
+    serverCreationThread.start()
 
 def ErrorHandler(error):
     eel.ErrorUpdater(error)() #Setting the error message for login
 
 @eel.expose
-def GetInputFromServer(IpAddress, Port, logs, encrypt, anom):
-    try:
-        CreateServer(IpAddress, Port, logs, encrypt, anom)
-    except:
-        UserJoin(IpAddress, Port, logs, encrypt, anom)
+def CloseSocket():
+    KillServer()
+    os._exit(1)
+
+@eel.expose
+def CloseUser():
+    KillUser()
+    os._exit(1)
+
+@eel.expose
+def GetInputFromServerJoin(IpAddress, Port, logs, encrypt, anom):
+    UserJoin(IpAddress, Port, logs, encrypt, anom)
+
+@eel.expose
+def GetInputFromServerCreate(IpAddress, Port, logs, encrypt, anom):
+    CreateServer(IpAddress, Port, logs, encrypt, anom)
 
 @eel.expose
 def SignUp(username, password1, password2):
@@ -67,10 +81,8 @@ def Forgot(username):
 def UserJoin(IpAddress, Port, logs, encrypt, anom):
     Error = CheckUserJoinCredentials(IpAddress, Port)
     ErrorHandler(Error)
-    print(IpAddress, Port, logs, encrypt, anom)
+    userJoinThread = Thread(target = initUserJoin, args=(IpAddress,Port));
+    userJoinThread.start()
 
-eel.start("index.html", size=(1200,800), mode="chrome", block=True)
 
-
-def ServerStart():
-    pass
+eel.start("index.html", size=(1200,800), mode="chrome", block=True, port=8020)
